@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "568230467230",
+    "project_id": "packman-1a043",
+    "storage_bucket": "packman-1a043.appspot.com",
+    "firebase_url": "https://packman-1a043-default-rtdb.firebaseio.com/"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568230467230:android:829867c826825516270d8f",
+        "android_client_info": {
+          "package_name": "com.packman.database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568230467230-lq0r79mai2dqv5np7cad7or06fack4eu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC2NRCjPJCWf2YXI4-mQJd2lEH5dyGd3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568230467230-lq0r79mai2dqv5np7cad7or06fack4eu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "568230467230-34t3smmeq203jt5k2s6kr9nqhb7245e3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.packman.database"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

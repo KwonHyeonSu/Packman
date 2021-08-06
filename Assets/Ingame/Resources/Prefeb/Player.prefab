@@ -46,6 +46,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -155,4 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageData: {fileID: 11400000, guid: 651b0c8d928a8c84084e716b52f36b50, type: 2}
-  moveTime: 0.2
+  m_state: 0
+  moveTime: 1
+  movingDir: {x: 1, y: 0}
+  pos: {x: 0, y: 0}

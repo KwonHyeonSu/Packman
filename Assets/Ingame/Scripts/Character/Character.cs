@@ -10,9 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     protected CharacterState m_state;
     
-    
-    [SerializeField]
-    protected float moveTime = 0.5f;
+    protected float speed = 5.0f;
     protected bool isMove = false;
     public bool isMOVE{
         get{
@@ -36,9 +34,10 @@ public class Character : MonoBehaviour
 
     //이동 관련
     protected Node startNode;
-    protected Node TargetNode;
+    protected Node targetNode;
 
 
+    [Header ("위치 정보")]
     [SerializeField]
     public Vector2Int pos; //현재 위치
     IEnumerator coroutine; //코루틴
@@ -59,9 +58,28 @@ public class Character : MonoBehaviour
         //노드지정
         startNode = GameMgr.Instance.GetNode(pos);
         Debug.LogError(this.name + " - startNode : " + startNode.pos);
-        TargetNode = GameMgr.Instance.GetNode(pos + direction);
-        Debug.LogError(this.name + " - targetNode : " + TargetNode.pos);
+        targetNode = GameMgr.Instance.GetNode(pos + direction);
+        Debug.LogError(this.name + " - targetNode : " + targetNode.pos);
 
+    }
+
+    public Node GetNode(Vector2Int Pos){
+        return GameMgr.Instance.GetNode(Pos);
+    }
+
+    protected virtual bool CheckNode(Node CheckNode){
+        Debug.LogError("재정의 되지 않음! -> CheckNode() 함수");
+        return false;
+    }
+
+    protected virtual bool MoveTo(Node TargetNode){
+        Debug.LogError("재정의 되지 않음! -> MoveTo() 함수");
+        return false;
+    }
+
+    protected void DisplayDir(){
+        Debug.DrawLine(transform.position, V2IntToV3(pos + movingDir), Color.blue);
+        Debug.DrawLine(transform.position, V2IntToV3(pos + moveDirection), Color.red);
     }
 
     //해당 노드로 이동
@@ -139,21 +157,30 @@ public class Character : MonoBehaviour
     //     readyToAstar = true;
     // }
 
-    protected virtual void Animating(Vector3 v){
-        if(v == Vector3.up){
+    protected virtual void Animating(Vector2Int v){
+        if(v == Vector2Int.up){
             anim.Play("Up");
         }
-        else if(v == Vector3.right){
+        else if(v == Vector2Int.right){
             anim.Play("Right");
         }
-        else if(v == Vector3.down){
+        else if(v == Vector2Int.down){
             anim.Play("Down");
         }
-        else if(v == Vector3.left){
+        else if(v == Vector2Int.left){
             anim.Play("Left");
 
         }
     }
 
-    
+
+    #region 계산 함수들
+    public Vector3 V2IntToV3(Vector2Int v){
+        return new Vector3(v.x, v.y, 0);
+    }
+
+    public Vector2Int V3toVInt(Vector3 v){
+        return new Vector2Int((int)v.x, (int)v.y);
+    }
+    #endregion
 }

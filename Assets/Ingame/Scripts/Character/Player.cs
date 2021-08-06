@@ -12,9 +12,16 @@ public class Player : Character
     {
         //입력받기
         GetInput();
+        DisplayDir();
 
         //움직임
-        KeepMoving();
+        if(CheckNode(targetNode)){
+            MoveTo(targetNode);
+        }
+        else{
+            SetTargetNode();
+        }
+        
 
         // bool check = CheckMoving();
     
@@ -32,8 +39,44 @@ public class Player : Character
         // }
     }
 
-    private void KeepMoving(){
-        // MoveNode(TargetNode);
+    public bool SetTargetNode(){
+        //움직이려는 방향
+        if(GetNode(pos + moveDirection).isWall)
+        {
+            Debug.LogError("벽이 있어서 갈 수 없습니다.");
+            return false;
+        }
+        else{
+            startNode = targetNode;
+            return true;
+        }
+    }
+
+    protected override bool CheckNode(Node targetNode){
+        if(targetNode == null){
+            Debug.LogError("검사하려는 노드가 없습니다.");
+            return false;
+        }
+
+        if(targetNode.isWall) return false;
+
+        else{
+            return true;
+        }
+    }
+
+    protected override bool MoveTo(Node TargetNode){
+        Debug.LogWarning("무빙..." + TargetNode.pos + " pos : " + transform.position);
+
+        transform.Translate(V2IntToV3(movingDir) * speed * Time.deltaTime);
+        Animating(movingDir);
+
+        if(V3toVInt(transform.position) == targetNode.pos){
+            Debug.LogError("go");
+            startNode = targetNode;
+            return false;
+        }
+        return true;
     }
     
     public static int inputing = 0;

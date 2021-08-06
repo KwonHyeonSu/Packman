@@ -13,7 +13,11 @@ public static class Define
         new Vector2Int(0,-1),
         new Vector2Int(-1,0)
     };
+
+
 }
+
+
 
 public enum CharacterState{
     follow = 0,

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoBehaviour
 {
-
     void OnGUI()
     {
         

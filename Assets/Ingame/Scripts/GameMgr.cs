@@ -100,7 +100,7 @@ public class GameMgr : MonoBehaviour
         StartPosResource = Resources.Load("StartPos") as GameObject;
 
         Player = InitCharacters("Player");
-        // Rosa = InitCharacters("Rosa");
+        Rosa = InitCharacters("Rosa");
         // Raymond = InitCharacters("Raymond");
         // Jake = InitCharacters("Jake");
         // Amy = InitCharacters("Amy");
@@ -244,7 +244,7 @@ public class GameMgr : MonoBehaviour
 
     public Node GetNode(Vector2Int Pos){
         var n = currentMap.NodeMap[Pos.x, Pos.y];
-        Debug.LogError("getnode!" + Pos);
+        // Debug.LogError("getnode!" + Pos);
         if(n != null)
             return currentMap.NodeMap[Pos.x, Pos.y];
         else return null;

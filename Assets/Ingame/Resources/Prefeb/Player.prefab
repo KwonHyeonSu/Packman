@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageData: {fileID: 11400000, guid: 651b0c8d928a8c84084e716b52f36b50, type: 2}
   m_state: 0
-  moveTime: 1
   movingDir: {x: 1, y: 0}
   pos: {x: 0, y: 0}
+  dummy_3: {fileID: 7514155339567651151, guid: da5f7ccf025042f46b797994dce98b59, type: 3}
+  dummy_4: {fileID: 7514155339567651151, guid: a38d43ce04db722499453649f68ae319, type: 3}

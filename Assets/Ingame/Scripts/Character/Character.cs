@@ -10,7 +10,10 @@ public class Character : MonoBehaviour
     [SerializeField]
     protected CharacterState m_state;
     
-    protected float speed = 5.0f;
+    protected float speed = 3.0f; //플레이어
+
+    protected float moveTime = 0.5f;
+
     protected bool isMove = false;
     public bool isMOVE{
         get{
@@ -57,9 +60,9 @@ public class Character : MonoBehaviour
 
         //노드지정
         startNode = GameMgr.Instance.GetNode(pos);
-        Debug.LogError(this.name + " - startNode : " + startNode.pos);
+        // Debug.LogError(this.name + " - startNode : " + startNode.pos);
         targetNode = GameMgr.Instance.GetNode(pos + direction);
-        Debug.LogError(this.name + " - targetNode : " + targetNode.pos);
+        // Debug.LogError(this.name + " - targetNode : " + targetNode.pos);
 
     }
 
@@ -67,95 +70,76 @@ public class Character : MonoBehaviour
         return GameMgr.Instance.GetNode(Pos);
     }
 
-    protected virtual bool CheckNode(Node CheckNode){
-        Debug.LogError("재정의 되지 않음! -> CheckNode() 함수");
-        return false;
-    }
-
-    protected virtual bool MoveTo(Node TargetNode){
-        Debug.LogError("재정의 되지 않음! -> MoveTo() 함수");
-        return false;
-    }
-
     protected void DisplayDir(){
-        Debug.DrawLine(transform.position, V2IntToV3(pos + movingDir), Color.blue);
-        Debug.DrawLine(transform.position, V2IntToV3(pos + moveDirection), Color.red);
+        Debug.DrawLine(transform.position, V2IntToV3(pos + movingDir), Color.red);
+        Debug.DrawLine(transform.position, V2IntToV3(pos + moveDirection), Color.blue);
     }
 
-    //해당 노드로 이동
-    // public void MoveNode(Node targetNode){
-    //     float percent = 0;
-    //     Vector3 wasPos = transform.position;
-    //     while(true){
-    //         percent += Time.deltaTime;
-    //         transform.position = Vector3.Lerp(wasPos, new Vector3(targetNode.x, targetNode.y, 0), moveTime);
-    //     }
-    // }
 
-    // public void Move(Vector3 moving){
-    //     MoveTo(moving);
-    //     Animating(moving);
-    // }
+    public void Move(Vector2Int moving){
+        MoveTo(moving);
+        Animating(moving);
+    }
 
-    // public bool MoveTo(Vector3 moving)
-    // {
-    //     if(isMove){
-    //         return false;
-    //     }
+    public bool MoveTo(Vector2Int moving)
+    {
+        if(isMove){
+            return false;
+        }
         
         
-    //     coroutine = SmoothGridMovement(moving);
-    //     StartCoroutine(coroutine);
+        coroutine = SmoothGridMovement(moving);
+        StartCoroutine(coroutine);
 
-    //     return true;
+        return true;
         
-    // }
+    }
 
     
 
 
-    // private IEnumerator SmoothGridMovement(Vector3 moving)
-    // {
-    //     Vector3 startPosition = transform.position;
-    //     float percent = 0;
+    private IEnumerator SmoothGridMovement(Vector2Int moving)
+    {
+        Vector3 startPosition = transform.position;
+        float percent = 0;
 
-    //     readyToAstar = false;
-    //     isMove = true;
+        readyToAstar = false;
+        isMove = true;
 
-    //     // if(startPosition.x <= stageData.LimitMin.x){
-    //     //     if(moving == Vector3.right){}
-    //     //     else startPosition.x = stageData.LimitMax.x;
-    //     // }
-    //     // else if(startPosition.x >= stageData.LimitMax.x){
-    //     //     if(moving == Vector3.left){}
-    //     //     else startPosition.x = stageData.LimitMin.x;
+        // if(startPosition.x <= stageData.LimitMin.x){
+        //     if(moving == Vector3.right){}
+        //     else startPosition.x = stageData.LimitMax.x;
+        // }
+        // else if(startPosition.x >= stageData.LimitMax.x){
+        //     if(moving == Vector3.left){}
+        //     else startPosition.x = stageData.LimitMin.x;
 
-    //     // }
-    //     // else if(startPosition.y <= stageData.LimitMin.y){
-    //     //     if(moving == Vector3.up){}
-    //     //     else startPosition.y = stageData.LimitMax.y;
-    //     // }
-    //     // else if(startPosition.y >= stageData.LimitMax.y){
-    //     //     if(moving == Vector3.down){}
-    //     //     else startPosition.y = stageData.LimitMin.y;
-    //     // }
+        // }
+        // else if(startPosition.y <= stageData.LimitMin.y){
+        //     if(moving == Vector3.up){}
+        //     else startPosition.y = stageData.LimitMax.y;
+        // }
+        // else if(startPosition.y >= stageData.LimitMax.y){
+        //     if(moving == Vector3.down){}
+        //     else startPosition.y = stageData.LimitMin.y;
+        // }
 
-    //     // transform.position = startPosition;
+        // transform.position = startPosition;
 
-    //     Vector3 endPosition = startPosition + moving;
+        Vector3 endPosition = startPosition + V2IntToV3(moving);
 
-    //     while (percent < moveTime)
-    //     {
-    //         percent += Time.deltaTime;
-    //         transform.position = Vector3.Lerp(startPosition, endPosition, percent / moveTime);
+        while (percent < moveTime)
+        {
+            percent += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, percent / moveTime);
 
-    //         yield return null;
-    //     }
-    //     pos = new Vector2Int((int)endPosition.x, (int)endPosition.y);
+            yield return null;
+        }
+        pos = new Vector2Int((int)endPosition.x, (int)endPosition.y);
 
-    //     isMove = false;
-    //     readyToAstar = true;
-    // }
+        isMove = false;
+        readyToAstar = true;
+    }
 
     protected virtual void Animating(Vector2Int v){
         if(v == Vector2Int.up){

@@ -37,7 +37,7 @@ public class StageData : ScriptableObject
     }
 
     [SerializeField]
-    public Vector2Int RosaStartPos = new Vector2Int(9, 8);
+    public Vector2Int RosaStartPos = new Vector2Int(2, 13);
 
     [SerializeField]
     public Vector2Int RaymondStartPos = new Vector2Int(1, 10);
